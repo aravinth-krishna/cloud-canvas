@@ -1,0 +1,29 @@
+/* components/ActivityBar/ActivityBar.module.css */
+.activityBar {
+  padding: 8px;
+  border-right: 1px solid #ddd;
+}
+
+.activityBar button {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.cpuPanel {
+  background: #f7f7f7;
+  padding: 4px;
+  border: 1px solid #ccc;
+}
+
+.cpuBar {
+  width: 100%;
+  height: 10px;
+  background: #ddd;
+  margin-top: 4px;
+  position: relative;
+}
+
+.cpuFill {
+  height: 100%;
+  background: #00884f;
+}

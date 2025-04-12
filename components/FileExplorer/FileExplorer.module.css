@@ -1,0 +1,14 @@
+/* components/FileExplorer/FileExplorer.module.css */
+.fileExplorer {
+  padding: 8px;
+  border-right: 1px solid #ddd;
+}
+
+.fileExplorer h3 {
+  margin-top: 0;
+}
+
+.fileExplorer ul {
+  list-style: none;
+  padding-left: 0;
+}
