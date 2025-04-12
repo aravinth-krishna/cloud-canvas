@@ -3,7 +3,7 @@ import styles from "./RunCodeButton.module.css";
 
 interface CodeExecutorProps {
   code: string;
-  onOutput: (output: string, metrics: any) => void;
+  onOutput: (output: string, metrics: Record<string, unknown> | null) => void;
 }
 
 const RunCodeButton = ({ code, onOutput }: CodeExecutorProps) => {
@@ -30,7 +30,7 @@ const RunCodeButton = ({ code, onOutput }: CodeExecutorProps) => {
           try {
             const errorObj = JSON.parse(responseData.body);
             errorMsg = errorObj.error || errorMsg;
-          } catch (parseError) {
+          } catch {
             errorMsg = responseData.body;
           }
         }
@@ -42,15 +42,17 @@ const RunCodeButton = ({ code, onOutput }: CodeExecutorProps) => {
           try {
             const resultObj = JSON.parse(responseData.body);
             onOutput(resultObj.result || "", resultObj.metrics);
-          } catch (parseError) {
+          } catch {
             onOutput(responseData.body, null);
           }
         } else {
           onOutput("No result returned.", null);
         }
       }
-    } catch (error: any) {
-      onOutput(error.message || "An unexpected error occurred.", null);
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      onOutput(errorMessage || "An unexpected error occurred.", null);
     }
   };
 

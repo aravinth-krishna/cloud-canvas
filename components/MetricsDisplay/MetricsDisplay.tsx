@@ -3,14 +3,36 @@
 
 import styles from "./MetricsDisplay.module.css";
 
-interface MetricsDisplayProps {
-  metrics: any;
+interface SystemInfo {
+  platform: string;
+  platform_release: string;
+  machine: string;
 }
 
-const renderNested = (obj: any) => {
+interface Metrics {
+  start_time: string;
+  end_time: string;
+  duration: number;
+  max_memory_kb: number;
+  system_info: SystemInfo;
+  python_version: string;
+  pytorch_version: string;
+  process_cpu_percent: number;
+  process_memory_percent: number;
+  io_counters: Record<string, unknown>;
+  system_memory: Record<string, unknown>;
+  system_cpu_percent: number;
+  psutil_error?: string;
+}
+
+interface MetricsDisplayProps {
+  metrics: Metrics;
+}
+
+const renderNested = (obj: unknown) => {
   return (
     <ul>
-      {Object.entries(obj).map(([key, value]) => (
+      {Object.entries(obj as Record<string, unknown>).map(([key, value]) => (
         <li key={key}>
           <strong>{key}:</strong>{" "}
           {value && typeof value === "object"
