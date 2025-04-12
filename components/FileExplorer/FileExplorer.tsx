@@ -21,7 +21,15 @@ const FileExplorer = () => {
   const fetchFiles = async () => {
     try {
       const { data } = await fileClient.models.FileItem.list();
-      setFiles(data);
+      setFiles(
+        data.map((item) => ({
+          id: item.id,
+          name: item.name ?? "",
+          type: item.type ?? "",
+          content: item.content ?? "",
+          parentId: item.parentId,
+        }))
+      );
     } catch (error) {
       console.error("Error fetching files", error);
     }

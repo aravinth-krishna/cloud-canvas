@@ -15,9 +15,9 @@ const defaultPythonCode = `print("Hello, world!")`;
 const CodePage = () => {
   const [code, setCode] = useState<string>(defaultPythonCode);
   const [output, setOutput] = useState<string>("");
-  const [metrics, setMetrics] = useState<any>(null);
+  const [metrics, setMetrics] = useState<unknown>(null);
 
-  const handleOutput = (result: string, metrics: any) => {
+  const handleOutput = (result: string, metrics: unknown) => {
     setOutput(result);
     setMetrics(metrics);
   };

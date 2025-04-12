@@ -15,7 +15,7 @@ const CodeEditor = ({ code, onCodeChange }: CodeEditorProps) => {
         height="400px"
         defaultLanguage="python"
         value={code}
-        onChange={(value, event) => onCodeChange(value ?? "")}
+        onChange={(value) => onCodeChange(value ?? "")}
         theme="vs-light"
       />
     </div>
