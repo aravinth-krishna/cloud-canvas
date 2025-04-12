@@ -1,0 +1,7 @@
+.output {
+  display: block;
+  border: 1px solid #c1c1c1;
+  height: 150px;
+  overflow: scroll;
+  padding: 0.5rem 1rem;
+}

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
     "aws-amplify": "^6.14.2",
     "next": "15.3.0",
     "react": "^19.0.0",

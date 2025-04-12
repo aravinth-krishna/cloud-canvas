@@ -1,0 +1,9 @@
+.runCodeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.75rem;
+  color: #00884f;
+  border-radius: 0;
+}
