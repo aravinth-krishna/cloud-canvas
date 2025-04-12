@@ -1,29 +1,21 @@
 /* components/ActivityBar/ActivityBar.module.css */
 .activityBar {
-  padding: 8px;
+  padding: 0.5rem;
+  height: 80vh;
   border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f7f7f7;
+  gap: 1rem;
 }
 
 .activityBar button {
-  display: block;
-  margin-bottom: 8px;
-}
-
-.cpuPanel {
-  background: #f7f7f7;
-  padding: 4px;
-  border: 1px solid #ccc;
-}
-
-.cpuBar {
-  width: 100%;
-  height: 10px;
-  background: #ddd;
-  margin-top: 4px;
-  position: relative;
-}
-
-.cpuFill {
-  height: 100%;
-  background: #00884f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
 }

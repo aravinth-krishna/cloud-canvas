@@ -1,5 +1,6 @@
 "use client";
 
+import styles from "./page.module.css";
 import CodeEditor from "@/components/CodeEditor/CodeEditor";
 import Navbar from "@/components/Navbar/Navbar";
 import Output from "@/components/Output/Output";
@@ -9,6 +10,7 @@ import MetricsDisplay from "@/components/MetricsDisplay/MetricsDisplay";
 import { useState } from "react";
 import ActivityBar from "@/components/ActivityBar/ActivityBar";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import StatusBar from "@/components/StatusBar/StatusBar";
 
 interface SystemInfo {
   platform: string;
@@ -48,14 +50,19 @@ const CodePage = () => {
     <>
       <Navbar />
       <Ribbon />
-      <ActivityBar />
-      <Sidebar />
-      <CodeEditor code={code} onCodeChange={setCode} />
-      <div>
-        <RunCodeButton code={code} onOutput={handleOutput} />
+      <div className={styles.content}>
+        <ActivityBar />
+        <Sidebar />
+        <div className={styles.codeContainer}>
+          <div className={styles.buttonGroup}>
+            <RunCodeButton code={code} onOutput={handleOutput} />
+          </div>
+          <CodeEditor code={code} onCodeChange={setCode} />
+          <Output output={output} />
+          <MetricsDisplay metrics={metrics as Metrics} />
+        </div>
       </div>
-      <Output output={output} />
-      <MetricsDisplay metrics={metrics as Metrics} />
+      <StatusBar />
     </>
   );
 };

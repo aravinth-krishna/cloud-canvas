@@ -35,13 +35,52 @@ const Ribbon = () => {
         <div className={styles.dropdownContent}>
           <button onClick={() => createItem("file")}>New File</button>
           <button onClick={() => createItem("folder")}>New Folder</button>
+          <button>Open File</button>
+          <button>Open Folder</button>
         </div>
       </div>
-      <button>Edit</button>
-      <button>View</button>
-      <button>Runtime</button>
-      <button>Tools</button>
-      <button>Help</button>
+      <div className={styles.dropdown}>
+        <button>Edit</button>
+        <div className={styles.dropdownContent}>
+          <button>Undo</button>
+          <button>Redo</button>
+          <button>Cut</button>
+          <button>Copy</button>
+          <button>Paste</button>
+        </div>
+      </div>
+
+      <div className={styles.dropdown}>
+        <button>View</button>
+        <div className={styles.dropdownContent}>
+          <button>Switch Mode</button>
+          <button>Resource Utilization</button>
+        </div>
+      </div>
+
+      <div className={styles.dropdown}>
+        <button>Runtime</button>
+        <div className={styles.dropdownContent}>
+          <button>Run Code</button>
+          <button>See Dependancies</button>
+        </div>
+      </div>
+
+      <div className={styles.dropdown}>
+        <button>Tools</button>
+        <div className={styles.dropdownContent}>
+          <button>Settings</button>
+        </div>
+      </div>
+
+      <div className={styles.dropdown}>
+        <button>Help</button>
+        <div className={styles.dropdownContent}>
+          <button>Docs</button>
+          <button>About</button>
+          <button>GitHub</button>
+        </div>
+      </div>
     </div>
   );
 };

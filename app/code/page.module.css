@@ -1,0 +1,19 @@
+.content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.codeContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 2rem;
+}

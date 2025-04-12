@@ -1,0 +1,16 @@
+.statusBar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: #f0f0f0;
+  border-top: 1px solid #ccc;
+}
+
+.statusBar span {
+  font-size: 0.875rem;
+  font-weight: 200;
+}

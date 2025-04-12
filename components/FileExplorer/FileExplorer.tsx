@@ -48,7 +48,7 @@ const FileExplorer = () => {
 
   return (
     <div className={styles.fileExplorer}>
-      <h3>Files</h3>
+      <h3>Explorer</h3>
       <ul>
         {files.map((file) => (
           <li key={file.id}>

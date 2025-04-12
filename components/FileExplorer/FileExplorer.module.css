@@ -1,11 +1,16 @@
 /* components/FileExplorer/FileExplorer.module.css */
 .fileExplorer {
-  padding: 8px;
-  border-right: 1px solid #ddd;
+  height: 100%;
 }
 
 .fileExplorer h3 {
   margin-top: 0;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
 .fileExplorer ul {
