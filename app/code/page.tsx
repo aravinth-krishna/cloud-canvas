@@ -34,7 +34,10 @@ interface Metrics {
   psutil_error?: string;
 }
 
-const defaultPythonCode = `print("Hello, world!")`;
+const defaultPythonCode = `# This is a sample Python code.
+# You can modify it and run it to see the output.
+
+print("Hello, world!")`;
 
 const CodePage = () => {
   const [code, setCode] = useState<string>(defaultPythonCode);

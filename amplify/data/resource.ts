@@ -10,7 +10,7 @@ const schema = a.schema({
       content: a.string(), // only applicable for files
       parentId: a.string(), // for hierarchical structuring
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -18,6 +18,6 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: "iam",
+    defaultAuthorizationMode: "apiKey",
   },
 });

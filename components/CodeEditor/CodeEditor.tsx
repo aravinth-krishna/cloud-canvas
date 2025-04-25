@@ -12,11 +12,17 @@ const CodeEditor = ({ code, onCodeChange }: CodeEditorProps) => {
   return (
     <div className={styles.editorWrapper}>
       <Editor
-        height="400px"
+        height="100%" // Use 100% height to fill the container
         defaultLanguage="python"
-        value={code}
-        onChange={(value) => onCodeChange(value ?? "")}
-        theme="vs-light"
+        value={code} // Initial value set from prop
+        onChange={(value) => onCodeChange(value ?? "")} // Call parent handler on change
+        theme="vs-light" // Or your preferred theme
+        options={{
+          minimap: { enabled: false }, // Disable minimap
+          fontSize: 14, // Adjust font size as needed
+          scrollBeyondLastLine: false, // Prevent scrolling beyond the last line
+          automaticLayout: true, // Automatically adjust layout when container size changes
+        }}
       />
     </div>
   );
