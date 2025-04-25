@@ -1,9 +1,6 @@
 .metricsContainer {
-  margin: 20px 0;
   padding: 1rem;
-  border: 1px solid #ccc;
   background: #f9f9f9;
-  border-radius: 4px;
 }
 
 .metricsContainer h2 {
