@@ -36,3 +36,11 @@
   border-radius: 50%;
   aspect-ratio: 1;
 }
+
+.buttonGroup a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

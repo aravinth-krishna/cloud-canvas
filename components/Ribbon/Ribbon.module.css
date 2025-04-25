@@ -25,6 +25,7 @@
   width: 150px;
   top: 100%;
   left: 0;
+  z-index: 777;
 }
 
 .dropdown:hover .dropdownContent {
@@ -39,6 +40,12 @@
   padding: 4px 8px;
   text-align: left;
   cursor: pointer;
+}
+
+.dropdown button a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .dropdownContent button:hover {

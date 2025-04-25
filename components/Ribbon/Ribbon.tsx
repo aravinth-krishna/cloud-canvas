@@ -3,6 +3,7 @@
 import styles from "./Ribbon.module.css";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
+import Link from "next/link";
 
 const dataClient = generateClient<Schema>();
 
@@ -69,16 +70,38 @@ const Ribbon = () => {
       <div className={styles.dropdown}>
         <button>Tools</button>
         <div className={styles.dropdownContent}>
-          <button>Settings</button>
+          <button>
+            <Link href={"/settings"}>Settings</Link>
+          </button>
         </div>
       </div>
 
       <div className={styles.dropdown}>
         <button>Help</button>
         <div className={styles.dropdownContent}>
-          <button>Docs</button>
-          <button>About</button>
-          <button>GitHub</button>
+          <button>
+            <Link
+              href={
+                "https://github.com/aravinth-krishna/cloud-canvas/blob/main/README.md"
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Docs
+            </Link>
+          </button>
+          <button>
+            <Link href={"/#about"}>About</Link>
+          </button>
+          <button>
+            <Link
+              href={"https://github.com/aravinth-krishna/cloud-canvas"}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </Link>
+          </button>
         </div>
       </div>
     </div>
