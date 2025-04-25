@@ -11,6 +11,7 @@ import { useState } from "react";
 import ActivityBar from "@/components/ActivityBar/ActivityBar";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import StatusBar from "@/components/StatusBar/StatusBar";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 interface SystemInfo {
   platform: string;
@@ -49,23 +50,32 @@ const CodePage = () => {
     setMetrics(metrics);
   };
 
+  const fsHandle = useFullScreenHandle();
+
   return (
     <>
-      <Navbar />
-      <Ribbon />
-      <div className={styles.content}>
-        <ActivityBar />
-        <Sidebar />
-        <div className={styles.codeContainer}>
-          <div className={styles.buttonGroup}>
-            <RunCodeButton code={code} onOutput={handleOutput} />
+      <FullScreen handle={fsHandle}>
+        <Navbar fullScreenHandle={fsHandle} />
+
+        <Ribbon />
+        <div className={styles.content}>
+          <ActivityBar />
+          <Sidebar />
+
+          <div className={styles.codeContainer}>
+            <div className={styles.buttonGroup}>
+              <RunCodeButton code={code} onOutput={handleOutput} />
+            </div>
+
+            <CodeEditor code={code} onCodeChange={setCode} />
+            <Output output={output} />
+
+            <MetricsDisplay metrics={metrics as Metrics} />
           </div>
-          <CodeEditor code={code} onCodeChange={setCode} />
-          <Output output={output} />
-          <MetricsDisplay metrics={metrics as Metrics} />
         </div>
-      </div>
-      <StatusBar />
+
+        <StatusBar />
+      </FullScreen>
     </>
   );
 };

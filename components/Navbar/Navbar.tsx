@@ -1,8 +1,15 @@
 "use client";
 
 import styles from "./Navbar.module.css";
+import type { FullScreenHandle } from "react-full-screen";
 
-const Navbar = () => {
+interface NavbarProps {
+  fullScreenHandle?: FullScreenHandle;
+}
+
+const Navbar = ({ fullScreenHandle }: NavbarProps) => {
+  const isFull = fullScreenHandle?.active || false;
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
@@ -111,20 +118,31 @@ const Navbar = () => {
             />
           </svg>
         </button>
-        <button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
+        {fullScreenHandle && (
+          <button
+            onClick={() =>
+              isFull ? fullScreenHandle.exit() : fullScreenHandle.enter()
+            }
+            title={isFull ? "Exit fullscreen" : "Enter fullscreen"}
           >
-            <path
-              d="M17.5 2.5V7.5H15.8333V5.34167L13.0917 8.09167L11.9083 6.90833L14.6583 4.16667H12.5V2.5H17.5ZM2.5 2.5V7.5H4.16667V5.34167L6.90833 8.09167L8.09167 6.90833L5.34167 4.16667H7.5V2.5H2.5ZM17.5 17.5V12.5H15.8333V14.6583L13.0917 11.9167L11.9167 13.0917L14.6583 15.8333H12.5V17.5H17.5ZM7.5 17.5V15.8333H5.34167L8.08333 13.0917L6.90833 11.9083L4.16667 14.6583V12.5H2.5V17.5H7.5Z"
-              fill="black"
-            />
-          </svg>
-        </button>
+            {!isFull ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M17.5 2.5V7.5H15.8333V5.34167L13.0917 8.09167L11.9083 6.90833L14.6583 4.16667H12.5V2.5H17.5ZM2.5 2.5V7.5H4.16667V5.34167L6.90833 8.09167L8.09167 6.90833L5.34167 4.16667H7.5V2.5H2.5ZM17.5 17.5V12.5H15.8333V14.6583L13.0917 11.9167L11.9167 13.0917L14.6583 15.8333H12.5V17.5H17.5ZM7.5 17.5V15.8333H5.34167L8.08333 13.0917L6.90833 11.9083L4.16667 14.6583V12.5H2.5V17.5H7.5Z"
+                  fill="black"
+                />
+              </svg>
+            ) : (
+              "⛶"
+            )}
+          </button>
+        )}
         <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"

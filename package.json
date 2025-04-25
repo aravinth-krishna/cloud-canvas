@@ -14,7 +14,8 @@
     "aws-amplify": "^6.14.2",
     "next": "15.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-full-screen": "^1.1.1"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.14.3",

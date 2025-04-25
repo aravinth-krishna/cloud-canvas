@@ -3,6 +3,7 @@
   display: flex;
   border-bottom: 1px solid #ddd;
   font-size: 0.875rem;
+  background-color: #ffffff;
 }
 
 .dropdown {
