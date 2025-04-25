@@ -35,6 +35,7 @@
   padding: 0.35rem;
   border-radius: 50%;
   aspect-ratio: 1;
+  cursor: pointer;
 }
 
 .buttonGroup a {
