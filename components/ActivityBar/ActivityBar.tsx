@@ -1,24 +1,9 @@
 // components/ActivityBar/ActivityBar.tsx
 "use client";
-import { useEffect, useState } from "react";
+
 import styles from "./ActivityBar.module.css";
 
 const ActivityBar = () => {
-  const [cpuUsage, setCpuUsage] = useState<number>(0);
-  const [showCpu, setShowCpu] = useState(false);
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (showCpu) {
-      // Simulate real‑time CPU usage; replace with a real API call as needed.
-      interval = setInterval(() => {
-        const randomCpu = Math.floor(Math.random() * 100);
-        setCpuUsage(randomCpu);
-      }, 1000);
-    }
-    return () => interval && clearInterval(interval);
-  }, [showCpu]);
-
   return (
     <div className={styles.activityBar}>
       <button>
@@ -36,7 +21,7 @@ const ActivityBar = () => {
         </svg>
       </button>
 
-      <button onClick={() => setShowCpu(!showCpu)}>
+      <button>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="28"
@@ -61,14 +46,6 @@ const ActivityBar = () => {
           </defs>
         </svg>
       </button>
-      {showCpu && (
-        <div className={styles.cpuPanel}>
-          <p>CPU Usage: {cpuUsage}%</p>
-          <div className={styles.cpuBar}>
-            <div className={styles.cpuFill} style={{ width: `${cpuUsage}%` }} />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
