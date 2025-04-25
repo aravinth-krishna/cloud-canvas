@@ -19,3 +19,17 @@
   padding: 0.5rem;
   border-radius: 5px;
 }
+
+.activityBar button {
+  /* existing styles */
+  transition: background-color 150ms ease;
+}
+
+.activityBar button:hover {
+  background-color: #e8e8e8;
+}
+
+.activityBar button.active {
+  /* visually indicate the selected tab */
+  background-color: #d0d0d0;
+}
