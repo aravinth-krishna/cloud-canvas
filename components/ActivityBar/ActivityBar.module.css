@@ -1,7 +1,8 @@
 /* components/ActivityBar/ActivityBar.module.css */
 .activityBar {
   padding: 0.5rem;
-  height: 90vh;
+  height: 85vh;
+  overflow: hidden;
   border-right: 1px solid #ddd;
   display: flex;
   flex-direction: column;

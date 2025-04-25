@@ -1,6 +1,8 @@
 .output {
   display: block;
   border: 1px solid #c1c1c1;
+  border-left: none;
+  border-right: none;
   height: 25vh;
   overflow: scroll;
   padding: 0.5rem 1rem;

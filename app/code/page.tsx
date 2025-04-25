@@ -12,30 +12,9 @@ import Navbar from "@/components/Navbar/Navbar";
 import Ribbon from "@/components/Ribbon/Ribbon";
 import StatusBar from "@/components/StatusBar/StatusBar";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { Metrics } from "@/components/MetricsDisplay/MetricsDisplay";
 
 type Tab = "files" | "metrics";
-
-interface SystemInfo {
-  platform: string;
-  platform_release: string;
-  machine: string;
-}
-
-interface Metrics {
-  start_time: string;
-  end_time: string;
-  duration: number;
-  max_memory_kb: number;
-  system_info: SystemInfo;
-  python_version: string;
-  pytorch_version: string;
-  process_cpu_percent: number;
-  process_memory_percent: number;
-  io_counters: Record<string, unknown>;
-  system_memory: Record<string, unknown>;
-  system_cpu_percent: number;
-  psutil_error?: string;
-}
 
 const defaultPythonCode = `# This is a sample Python code.
 # You can modify it and run it to see the output.
