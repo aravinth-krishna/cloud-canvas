@@ -4,10 +4,14 @@ import styles from "./Ribbon.module.css";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import Link from "next/link";
+import DependenciesModal from "@/components/DependenciesModel/DependenciesModel";
+import { useState } from "react";
 
 const dataClient = generateClient<Schema>();
 
 const Ribbon = () => {
+  const [depsOpen, setDepsOpen] = useState(false);
+
   const createItem = async (type: "file" | "folder") => {
     const name = prompt(`Enter ${type} name:`);
     if (!name) return;
@@ -63,7 +67,34 @@ const Ribbon = () => {
         <button>Runtime</button>
         <div className={styles.dropdownContent}>
           <button>Run Code</button>
-          <button>See Dependancies</button>
+          <button onClick={() => setDepsOpen(true)}>See Dependencies</button>
+          <DependenciesModal
+            isOpen={depsOpen}
+            onClose={() => setDepsOpen(false)}
+            dependencies={[
+              {
+                name: "torch",
+                version: "2.0.1+cpu",
+                description:
+                  "PyTorch is an open source machine learning framework that accelerates the path from research prototyping to production deployment.",
+                officialUrl: "https://pytorch.org",
+              },
+              {
+                name: "numpy",
+                version: "latest",
+                description:
+                  "NumPy is the fundamental package for scientific computing with Python, offering array objects and routines.",
+                officialUrl: "https://numpy.org",
+              },
+              {
+                name: "psutil",
+                version: "latest",
+                description:
+                  "psutil (process and system utilities) is a cross-platform library for retrieving information on running processes and system utilization in Python.",
+                officialUrl: "https://psutil.readthedocs.io",
+              },
+            ]}
+          />
         </div>
       </div>
 
