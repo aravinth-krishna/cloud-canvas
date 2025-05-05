@@ -25,8 +25,8 @@ export default function Home() {
               browser. Focus on learning and building, not on hardware setup.
               Pay only for what you compute.
             </p>
-            <Link href="/code" legacyBehavior>
-              <a className={styles.ctaButton}>Start Coding Now</a>
+            <Link href="/code">
+              <button className={styles.ctaButton}>Start Coding Now</button>
             </Link>
             <p className={styles.ctaSubtext}>No credit card required*</p>
             {/* (*Add asterisk if you have a free tier or trial) */}
@@ -158,10 +158,10 @@ export default function Home() {
                 Clear usage tracking available in your dashboard.
               </p>
             </div>
-            <Link href="/code" legacyBehavior>
-              <a className={`${styles.ctaButton} ${styles.pricingCta}`}>
+            <Link href="/code">
+              <button className={`${styles.ctaButton} ${styles.pricingCta}`}>
                 Start Building
-              </a>
+              </button>
             </Link>
           </div>
           {/* Optional: Add tiers if you have them (e.g., Free Tier, Pro Tier) */}
@@ -174,8 +174,8 @@ export default function Home() {
             Join Cloud Canvas today and experience the easiest way to learn and
             build AI models.
           </p>
-          <Link href="/code" legacyBehavior>
-            <a className={styles.ctaButton}>Go to Editor</a>
+          <Link href="/code">
+            <button className={styles.ctaButton}>Go to Editor</button>
           </Link>
         </section>
       </main>

@@ -31,7 +31,7 @@ export default function HomeNavbar() {
           </li>{" "}
           {/* Assuming you'll have a docs page */}
         </ul>
-        <Link href="/api/auth/login">
+        <Link href="/login">
           {/* Adjust '/api/auth/login' based on your Amplify Cognito setup */}
           <span className={styles.signInButton}>Sign In</span>
         </Link>
