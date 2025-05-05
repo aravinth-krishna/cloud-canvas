@@ -1,13 +1,19 @@
+// app/(protected)/settings/page.tsx
 "use client";
 
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "@/amplify/data/resource";
 import { useEffect, useState } from "react";
+import Navbar from "@/components/Navbar/Navbar";
+import StatusBar from "@/components/StatusBar/StatusBar";
+import styles from "./page.module.css";
+import Link from "next/link";
+import { IoMdArrowBack } from "react-icons/io";
 
 const client = generateClient<Schema>();
 
-const FREE_TIER_SECONDS = 500;
-const PRICE_PER_SECOND = 0.01;
+const FREE_TIER_SECONDS = 3600 * 24; // 1 hour per day for 30 days
+const PRICE_PER_SECOND = 0.02; // $0.02 per second
 
 export default function SettingsPage() {
   const [usage, setUsage] = useState<{
@@ -42,76 +48,78 @@ export default function SettingsPage() {
   }, []);
 
   if (loading) {
-    return <div>Loading settings...</div>;
+    return <div className={styles.container}>Loading settings...</div>;
   }
 
   if (!usage) {
-    return <div>Unable to load usage data.</div>;
+    return <div className={styles.container}>Unable to load usage data.</div>;
   }
 
   const billableSeconds = Math.max(usage.totalDuration - FREE_TIER_SECONDS, 0);
   const estimatedBill = billableSeconds * PRICE_PER_SECOND;
+  const usagePercent = Math.min(
+    (usage.totalDuration / FREE_TIER_SECONDS) * 100,
+    100
+  );
+  const fillClass =
+    usage.totalDuration > FREE_TIER_SECONDS
+      ? styles.overFree
+      : styles.underFree;
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Settings</h1>
+    <div>
+      <Navbar />
 
-      <section style={{ marginTop: "2rem" }}>
-        <h2>Usage This Month</h2>
-        <p>
-          <strong>Runs:</strong> {usage.runs}
-        </p>
-        <p>
-          <strong>Total compute time:</strong> {usage.totalDuration.toFixed(2)}{" "}
-          seconds
-        </p>
+      <Link href="/code" className={styles.backButton}>
+        <IoMdArrowBack /> Back
+      </Link>
 
-        <div
-          style={{
-            marginTop: "1rem",
-            height: "30px",
-            background: "#eee",
-            borderRadius: "5px",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              width: `${Math.min((usage.totalDuration / FREE_TIER_SECONDS) * 100, 100)}%`,
-              background:
-                usage.totalDuration > FREE_TIER_SECONDS ? "#f44336" : "#4caf50",
-              height: "100%",
-            }}
-          ></div>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Settings</h1>
+
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <h2>Usage This Month</h2>
+            <span className={styles.stat}>{usage.runs} runs</span>
+          </div>
+          <p className={styles.infoText}>
+            Total compute time:{" "}
+            <strong>{usage.totalDuration.toFixed(2)}s</strong>
+          </p>
+
+          <div className={styles.progressBar}>
+            <div
+              className={`${styles.progressFill} ${fillClass}`}
+              style={{ width: `${usagePercent}%` }}
+            />
+          </div>
+
+          <p className={styles.infoText}>
+            {usage.totalDuration > FREE_TIER_SECONDS
+              ? `Exceeded free tier by ${billableSeconds.toFixed(2)}s.`
+              : `${(FREE_TIER_SECONDS - usage.totalDuration).toFixed(2)}s free remaining.`}
+          </p>
         </div>
 
-        <p style={{ marginTop: "0.5rem" }}>
-          {usage.totalDuration > FREE_TIER_SECONDS
-            ? `Exceeded free tier by ${billableSeconds.toFixed(2)} seconds.`
-            : `${(FREE_TIER_SECONDS - usage.totalDuration).toFixed(2)} free seconds remaining.`}
-        </p>
-      </section>
-
-      <section style={{ marginTop: "2rem" }}>
-        <h2>Billing</h2>
-        <p>
-          <strong>Estimated bill:</strong> ${estimatedBill.toFixed(2)}
-        </p>
-        <button
-          style={{
-            marginTop: "1rem",
-            padding: "0.75rem 1.5rem",
-            backgroundColor: "#0070f3",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-          onClick={() => alert("Email with usage details sent! (demo)")}
-        >
-          Send Usage Email
-        </button>
-      </section>
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <h2>Billing</h2>
+            <span className={styles.stat}>${estimatedBill.toFixed(2)}</span>
+          </div>
+          <p className={styles.infoText}>
+            Free tier: {FREE_TIER_SECONDS.toLocaleString()}s/month at $0.00
+            <br />
+            Overage: ${PRICE_PER_SECOND.toFixed(2)}/s
+          </p>
+          <button
+            className={styles.button}
+            onClick={() => alert("Email with usage details sent! (demo)")}
+          >
+            Email Invoice
+          </button>
+        </div>
+      </div>
+      <StatusBar />
     </div>
   );
 }

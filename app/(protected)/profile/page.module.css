@@ -16,7 +16,7 @@
   font-weight: 500;
   padding: 0.5rem 1rem;
   background: rgba(255, 255, 255, 0.8);
-  border-radius: 6px;
+  border: 1px solid #0071f32f;
   transition: background 0.2s;
   display: flex;
   align-items: center;

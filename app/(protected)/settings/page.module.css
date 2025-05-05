@@ -1,0 +1,117 @@
+/* app/(protected)/settings/page.module.css */
+
+.backButton {
+  position: absolute; /* take out of flow, position relative to .page :contentReference[oaicite:2]{index=2} */
+  top: 5rem;
+  right: 1rem;
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background: rgba(244, 244, 244, 0.8);
+  border: 1px solid #0071f32f;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.card {
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.cardHeader h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+  color: #222;
+}
+
+.stat {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0070f3;
+}
+
+.progressBar {
+  position: relative;
+  height: 1rem;
+  background: #f1f1f1;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin: 0.75rem 0;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 0.5rem 0 0 0.5rem;
+  transition: width 0.4s ease;
+}
+
+.underFree {
+  background-color: #4caf50;
+}
+
+.overFree {
+  background-color: #f44336;
+}
+
+.infoText {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.button {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.button:hover {
+  background-color: #005bb5;
+}
