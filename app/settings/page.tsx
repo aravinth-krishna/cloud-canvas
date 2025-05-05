@@ -1,7 +1,5 @@
-import styles from "./page.module.css";
-
 const SettingsPage = () => {
-  return <div className={styles.page}>SettingsPage</div>;
+  return <div>SettingsPage</div>;
 };
 
 export default SettingsPage;

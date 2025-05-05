@@ -1,6 +1,134 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
+  min-height: 100vh;
+  background: #f0f2f5;
+  gap: 2rem;
+  padding-bottom: 10vh;
+}
+
+.backButton {
+  position: absolute; /* take out of flow, position relative to .page :contentReference[oaicite:2]{index=2} */
+  top: 5rem;
+  right: 1rem;
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+.card {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  width: 600px;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #333;
+}
+
+.field span {
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: #0070f3;
+  outline: none;
+}
+
+.button {
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  background-color: #0070f3;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.button:not(:disabled):hover {
+  background-color: #005bb5;
+}
+
+.confirmSection {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.codeInput {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.smallButton {
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.smallButton:hover {
+  background-color: #218838;
+}
+
+.logoutButton {
+  padding: 0.5rem 1rem;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  width: 100%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logoutButton:hover {
+  background-color: #c82333;
+}
+
+.message {
+  color: #155724;
+  background: #d4edda;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
 }
