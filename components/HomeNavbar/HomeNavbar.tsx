@@ -33,7 +33,7 @@ export default function HomeNavbar() {
         </ul>
         <Link href="/api/auth/login">
           {/* Adjust '/api/auth/login' based on your Amplify Cognito setup */}
-          <a className={styles.signInButton}>Sign In</a>
+          <span className={styles.signInButton}>Sign In</span>
         </Link>
         {/* Or use Amplify's Authenticator component for a more integrated experience */}
         {/* <Authenticator> */}
