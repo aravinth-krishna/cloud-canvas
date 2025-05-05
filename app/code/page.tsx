@@ -13,6 +13,7 @@ import Ribbon from "@/components/Ribbon/Ribbon";
 import StatusBar from "@/components/StatusBar/StatusBar";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Metrics } from "@/components/MetricsDisplay/MetricsDisplay";
+import { FaPython } from "react-icons/fa";
 
 type Tab = "files" | "metrics";
 
@@ -47,6 +48,9 @@ const CodePage = () => {
             <Sidebar />
             <div className={styles.codeContainer}>
               <div className={styles.buttonGroup}>
+                <span>
+                  <FaPython /> Python v13
+                </span>
                 <RunCodeButton code={code} onOutput={handleOutput} />
               </div>
               <CodeEditor code={code} onCodeChange={setCode} />
