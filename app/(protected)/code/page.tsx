@@ -49,7 +49,7 @@ const CodePage = () => {
             <div className={styles.codeContainer}>
               <div className={styles.buttonGroup}>
                 <span>
-                  <FaPython /> Python v13
+                  <FaPython /> Python v3.13
                 </span>
                 <RunCodeButton code={code} onOutput={handleOutput} />
               </div>

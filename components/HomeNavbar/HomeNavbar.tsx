@@ -27,7 +27,9 @@ export default function HomeNavbar() {
           </li>{" "}
           {/* Link to section */}
           <li>
-            <Link href="/docs">Docs</Link>
+            <Link href="https://github.com/aravinth-krishna/cloud-canvas/blob/main/README.md">
+              Docs
+            </Link>
           </li>{" "}
           {/* Assuming you'll have a docs page */}
         </ul>

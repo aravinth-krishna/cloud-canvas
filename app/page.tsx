@@ -146,12 +146,7 @@ export default function Home() {
             {/* --- IMPORTANT: ADD YOUR SPECIFIC PRICING DETAILS HERE --- */}
             <div className={styles.pricingDetails}>
               <p>
-                <strong>Compute Time:</strong> $X.XX per minute/hour (Specify
-                unit)
-              </p>
-              <p>
-                <strong>Storage:</strong> Included up to Y GB (Specify limit if
-                any)
+                <strong>Compute Time:</strong> $0.02 per hour
               </p>
               {/* Add more details as needed - e.g., different instance types? */}
               <p className={styles.pricingNote}>
