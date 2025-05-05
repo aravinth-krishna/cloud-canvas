@@ -11,6 +11,14 @@ const schema = a.schema({
       parentId: a.string(), // for hierarchical structuring
     })
     .authorization((allow) => [allow.owner()]),
+
+  Usage: a
+    .model({
+      month: a.string(), // e.g., "2025-05"
+      totalDuration: a.float(), // seconds used
+      runs: a.integer(), // number of code runs
+    })
+    .authorization((allow) => [allow.owner()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;

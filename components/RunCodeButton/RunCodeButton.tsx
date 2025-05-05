@@ -1,5 +1,9 @@
 // components/RunCodeButton/RunCodeButton.tsx
 import styles from "./RunCodeButton.module.css";
+import { generateClient } from "aws-amplify/data";
+import { type Schema } from "@/amplify/data/resource"; // adjust path if needed
+
+const client = generateClient<Schema>();
 
 interface CodeExecutorProps {
   code: string;
@@ -49,6 +53,18 @@ const RunCodeButton = ({ code, onOutput }: CodeExecutorProps) => {
           onOutput("No result returned.", null);
         }
       }
+
+      const now = new Date();
+      const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+      const seconds = responseData.metrics?.duration ?? 0;
+
+      const usageRecord = await client.models.Usage.get({ id: `${month}` });
+      await client.models.Usage.update({
+        id: `${month}`, // use month as ID, or you can use custom logic
+        month: month,
+        totalDuration: (usageRecord?.data?.totalDuration ?? 0) + seconds,
+        runs: (usageRecord?.data?.runs ?? 0) + 1,
+      });
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
