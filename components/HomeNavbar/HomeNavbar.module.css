@@ -1,0 +1,88 @@
+/* Basic Styling - Enhance as needed */
+.navbar {
+  position: fixed; /* Or sticky */
+  top: 1rem; /* Adjust spacing from top */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%; /* Or a max-width */
+  max-width: 1200px; /* Example max-width */
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border-radius: 50px; /* Rounded corners */
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: top 0.3s ease-in-out;
+}
+
+/* Add subtle animation on scroll if desired */
+/* .navbarScrolled { 
+    top: 0.5rem; 
+  } */
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #333; /* Dark text */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
+}
+
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem; /* Spacing between links */
+  margin: 0;
+  padding: 0;
+}
+
+.navLinks li a {
+  text-decoration: none;
+  color: #555; /* Slightly lighter text */
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navLinks li a:hover {
+  color: #0070f3; /* Highlight color on hover */
+}
+
+.signInButton {
+  background-color: #0070f3; /* Primary button color */
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 25px; /* Pill shape */
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.signInButton:hover {
+  background-color: #005bb5; /* Darker shade on hover */
+}
+
+.signInButton:active {
+  transform: scale(0.98); /* Slight press effect */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navLinks {
+    display: none; /* Hide links on smaller screens - consider a hamburger menu */
+  }
+  /* Add styles for a hamburger menu icon if hiding links */
+}

@@ -1,0 +1,9 @@
+/* No changes needed inside the CSS file itself */
+.footer {
+  text-align: center; /* Center the text */
+  padding: 1.5rem 1rem; /* Add some padding */
+  margin-top: 3rem; /* Space above the footer */
+  font-size: 0.9rem; /* Slightly smaller font */
+  color: #888; /* Muted text color */
+  border-top: 1px solid #eee; /* Very light top border for separation */
+}
