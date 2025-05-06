@@ -1,7 +1,7 @@
 // components/Ribbon/Ribbon.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./Ribbon.module.css";
 import DependenciesModal from "@/components/DependenciesModel/DependenciesModel";
@@ -25,14 +25,8 @@ export default function Ribbon({
   disableRun,
   onShowMetrics,
   disableMetrics,
-  onSwitchMode,
 }: RibbonProps) {
   const [depsOpen, setDepsOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    document.body.classList.toggle("dark", darkMode);
-  }, [darkMode]);
 
   return (
     <div className={styles.ribbon}>
@@ -56,14 +50,6 @@ export default function Ribbon({
       <div className={styles.dropdown}>
         <button>View</button>
         <div className={styles.dropdownContent}>
-          <button
-            onClick={() => {
-              setDarkMode((prev) => !prev);
-              onSwitchMode();
-            }}
-          >
-            Switch Mode
-          </button>
           <button onClick={onShowMetrics} disabled={disableMetrics}>
             Resource Utilization
           </button>
