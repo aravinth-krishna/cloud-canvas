@@ -2,13 +2,20 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
 const schema = a.schema({
-  // New model for files/folders.
+  // Don't care about this model, just ignore it completely
   FileItem: a
     .model({
       name: a.string(),
       type: a.string(), // "file" or "folder"
       content: a.string(), // only applicable for files
       parentId: a.string(), // for hierarchical structuring
+    })
+    .authorization((allow) => [allow.owner()]),
+
+  File: a
+    .model({
+      name: a.string(),
+      content: a.string(), // file content
     })
     .authorization((allow) => [allow.owner()]),
 

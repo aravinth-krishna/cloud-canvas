@@ -14,7 +14,7 @@ const RunCodeButton = ({ code, onOutput }: CodeExecutorProps) => {
   const handleClick = async () => {
     try {
       const response = await fetch(
-        "https://m6g4qphfrx74s4g2l45uddowxm0ucrlf.lambda-url.us-east-1.on.aws/",
+        "https://spqs4bte4p6km4gwfh4ot7traq0jeztc.lambda-url.us-west-2.on.aws/",
         {
           method: "POST",
           headers: {
