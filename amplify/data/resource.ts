@@ -32,7 +32,7 @@ const schema = a.schema({
       totalDuration: a.float(), // seconds used
       runs: a.integer(), // number of code runs
     })
-    .authorization((allow) => [allow.owner()]),
+    .authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;

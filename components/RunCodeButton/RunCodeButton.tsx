@@ -1,74 +1,61 @@
-// components/RunCodeButton/RunCodeButton.tsx
 import styles from "./RunCodeButton.module.css";
 import { generateClient } from "aws-amplify/data";
-import { type Schema } from "@/amplify/data/resource"; // adjust path if needed
+import type { Schema } from "@/amplify/data/resource";
 
 const client = generateClient<Schema>();
 
 interface CodeExecutorProps {
   code: string;
-  onOutput: (output: string, metrics: Record<string, unknown> | null) => void;
+  onOutput: (output: string, metrics: { duration?: number } | null) => void;
 }
 
-const RunCodeButton = ({ code, onOutput }: CodeExecutorProps) => {
+export default function RunCodeButton({ code, onOutput }: CodeExecutorProps) {
   const handleClick = async () => {
     try {
-      const response = await fetch(
+      const resp = await fetch(
         "https://spqs4bte4p6km4gwfh4ot7traq0jeztc.lambda-url.us-west-2.on.aws/",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ code }),
         }
       );
+      const data = await resp.json();
+      const duration = data.metrics?.duration ?? 0;
+      const result = data.result ?? data.body ?? "No result";
 
-      const responseData = await response.json();
+      // show output
+      onOutput(result, data.metrics || null);
 
-      if (!response.ok) {
-        let errorMsg = "Error executing code.";
-        if (responseData.error) {
-          errorMsg = responseData.error;
-        } else if (responseData.body) {
-          try {
-            const errorObj = JSON.parse(responseData.body);
-            errorMsg = errorObj.error || errorMsg;
-          } catch {
-            errorMsg = responseData.body;
-          }
-        }
-        onOutput(errorMsg, responseData.metrics || null);
-      } else {
-        if (responseData.result !== undefined) {
-          onOutput(responseData.result, responseData.metrics);
-        } else if (responseData.body) {
-          try {
-            const resultObj = JSON.parse(responseData.body);
-            onOutput(resultObj.result || "", resultObj.metrics);
-          } catch {
-            onOutput(responseData.body, null);
-          }
-        } else {
-          onOutput("No result returned.", null);
-        }
-      }
-
+      // update or create Usage record
       const now = new Date();
       const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-      const seconds = responseData.metrics?.duration ?? 0;
 
-      const usageRecord = await client.models.Usage.get({ id: `${month}` });
-      await client.models.Usage.update({
-        id: `${month}`, // use month as ID, or you can use custom logic
-        month: month,
-        totalDuration: (usageRecord?.data?.totalDuration ?? 0) + seconds,
-        runs: (usageRecord?.data?.runs ?? 0) + 1,
+      // list existing
+      const listResp = await client.models.Usage.list({
+        filter: { month: { eq: month } },
       });
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-      onOutput(errorMessage || "An unexpected error occurred.", null);
+      const existing = listResp.data[0];
+
+      if (existing) {
+        // update
+        await client.models.Usage.update({
+          id: existing.id,
+          month,
+          totalDuration: (existing.totalDuration ?? 0) + duration,
+          runs: (existing.runs ?? 0) + 1,
+        });
+      } else {
+        // create new
+        await client.models.Usage.create({
+          month,
+          totalDuration: duration,
+          runs: 1,
+        });
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      onOutput("Error: " + msg, null);
     }
   };
 
@@ -89,6 +76,4 @@ const RunCodeButton = ({ code, onOutput }: CodeExecutorProps) => {
       <span>Run</span>
     </button>
   );
-};
-
-export default RunCodeButton;
+}
