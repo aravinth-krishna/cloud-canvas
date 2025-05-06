@@ -1,22 +1,38 @@
+// components/Ribbon/Ribbon.tsx
 "use client";
 
-import styles from "./Ribbon.module.css";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useState } from "react";
+import styles from "./Ribbon.module.css";
 import DependenciesModal from "@/components/DependenciesModel/DependenciesModel";
 
 interface RibbonProps {
   onNewFile: (name: string) => void;
   onSaveFile: () => void;
   disableSave: boolean;
+  onRunCode: () => void;
+  disableRun: boolean;
+  onShowMetrics: () => void;
+  disableMetrics: boolean;
+  onSwitchMode: () => void;
 }
 
 export default function Ribbon({
   onNewFile,
   onSaveFile,
   disableSave,
+  onRunCode,
+  disableRun,
+  onShowMetrics,
+  disableMetrics,
+  onSwitchMode,
 }: RibbonProps) {
   const [depsOpen, setDepsOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle("dark", darkMode);
+  }, [darkMode]);
 
   return (
     <div className={styles.ribbon}>
@@ -37,19 +53,29 @@ export default function Ribbon({
         </div>
       </div>
 
-      {/* Other menus unchanged */}
       <div className={styles.dropdown}>
         <button>View</button>
         <div className={styles.dropdownContent}>
-          <button>Switch Mode</button>
-          <button>Resource Utilization</button>
+          <button
+            onClick={() => {
+              setDarkMode((prev) => !prev);
+              onSwitchMode();
+            }}
+          >
+            Switch Mode
+          </button>
+          <button onClick={onShowMetrics} disabled={disableMetrics}>
+            Resource Utilization
+          </button>
         </div>
       </div>
 
       <div className={styles.dropdown}>
         <button>Runtime</button>
         <div className={styles.dropdownContent}>
-          <button>Run Code</button>
+          <button onClick={onRunCode} disabled={disableRun}>
+            Run Code
+          </button>
           <button onClick={() => setDepsOpen(true)}>See Dependencies</button>
           <DependenciesModal
             isOpen={depsOpen}
@@ -59,21 +85,21 @@ export default function Ribbon({
                 name: "torch",
                 version: "2.0.1+cpu",
                 description:
-                  "PyTorch is an open source machine learning framework that accelerates the path from research prototyping to production deployment.",
+                  "PyTorch is an open source machine learning framework...",
                 officialUrl: "https://pytorch.org",
               },
               {
                 name: "numpy",
                 version: "latest",
                 description:
-                  "NumPy is the fundamental package for scientific computing with Python, offering array objects and routines.",
+                  "NumPy is the fundamental package for scientific computing...",
                 officialUrl: "https://numpy.org",
               },
               {
                 name: "psutil",
                 version: "latest",
                 description:
-                  "psutil (process and system utilities) is a cross-platform library for retrieving information on running processes and system utilization in Python.",
+                  "psutil is a cross-platform library for retrieving process/system info...",
                 officialUrl: "https://psutil.readthedocs.io",
               },
             ]}
@@ -85,7 +111,7 @@ export default function Ribbon({
         <button>Tools</button>
         <div className={styles.dropdownContent}>
           <button>
-            <Link href={"/settings"}>Settings</Link>
+            <Link href="/settings">Settings</Link>
           </button>
         </div>
       </div>
@@ -95,29 +121,25 @@ export default function Ribbon({
         <div className={styles.dropdownContent}>
           <button>
             <Link
-              href={
-                "https://github.com/aravinth-krishna/cloud-canvas/blob/main/README.md"
-              }
+              href="https://github.com/aravinth-krishna/cloud-canvas/blob/main/README.md"
               target="_blank"
-              rel="noopener noreferrer"
             >
               Docs
             </Link>
           </button>
           <button>
-            <Link href={"/#about"}>About</Link>
+            <Link href="/#about">About</Link>
           </button>
           <button>
             <Link
-              href={"https://github.com/aravinth-krishna/cloud-canvas"}
+              href="https://github.com/aravinth-krishna/cloud-canvas"
               target="_blank"
-              rel="noopener noreferrer"
             >
               GitHub
             </Link>
           </button>
           <button>
-            <Link href={"/chatbot"}>Ask AI ✨</Link>
+            <Link href="/chatbot">Ask AI ✨</Link>
           </button>
         </div>
       </div>
