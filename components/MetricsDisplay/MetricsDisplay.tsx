@@ -1,3 +1,4 @@
+// components/MetricsDisplay/MetricsDisplay.tsx
 "use client";
 import React from "react";
 import {
@@ -12,7 +13,7 @@ import {
   Legend,
   Title,
 } from "chart.js";
-import { Line, Bar, Doughnut } from "react-chartjs-2";
+import { Line, Doughnut } from "react-chartjs-2";
 import styles from "./MetricsDisplay.module.css";
 
 ChartJS.register(
@@ -44,7 +45,7 @@ export interface Metrics {
   process_cpu_percent: number;
   process_memory_percent: number;
   io_counters: Record<string, number>;
-  system_memory: Record<string, number>;
+  system_memory: { total: number; used: number };
   system_cpu_percent: number;
   psutil_error?: string;
 }
@@ -53,38 +54,44 @@ interface MetricsDisplayProps {
   metrics: Metrics;
 }
 
-const MetricsDisplay = ({ metrics }: MetricsDisplayProps) => {
+const MetricsDisplay: React.FC<MetricsDisplayProps> = ({ metrics }) => {
   if (!metrics) return null;
 
-  // Prepare chart data
+  // Chart data for CPU utilization
   const cpuData = {
     labels: ["Process", "System"],
     datasets: [
       {
         label: "CPU Utilization (%)",
         data: [metrics.process_cpu_percent, metrics.system_cpu_percent],
-        backgroundColor: ["#4e79a7", "#f28e2b"],
+        borderColor: ["#4e79a7", "#f28e2b"],
+        backgroundColor: ["rgba(78,121,167,0.2)", "rgba(242,142,43,0.2)"],
+        fill: false,
+        tension: 0.4,
       },
     ],
   };
 
+  // Chart data for Memory usage
+  const memUsedPerc =
+    (metrics.system_memory.used / metrics.system_memory.total) * 100;
   const memData = {
     labels: ["Process", "System"],
     datasets: [
       {
         label: "Memory Usage (%)",
-        data: [
-          metrics.process_memory_percent,
-          ((metrics.system_memory.used as number) * 100) /
-            (metrics.system_memory.total as number),
-        ],
-        backgroundColor: ["#e15759", "#76b7b2"],
+        data: [metrics.process_memory_percent, memUsedPerc],
+        borderColor: ["#e15759", "#76b7b2"],
+        backgroundColor: ["rgba(225,87,89,0.2)", "rgba(118,183,178,0.2)"],
+        fill: false,
+        tension: 0.4,
       },
     ],
   };
 
+  // Chart data for IO counters (Doughnut)
   const ioLabels = Object.keys(metrics.io_counters);
-  const ioValues = Object.values(metrics.io_counters) as number[];
+  const ioValues = Object.values(metrics.io_counters);
   const ioData = {
     labels: ioLabels,
     datasets: [
@@ -96,6 +103,18 @@ const MetricsDisplay = ({ metrics }: MetricsDisplayProps) => {
         ),
       },
     ],
+  };
+
+  const commonOptions = {
+    responsive: true,
+    plugins: {
+      legend: { position: "top" as const },
+      title: { display: true, text: "" },
+      tooltip: { mode: "index" as const, intersect: false },
+    },
+    scales: {
+      y: { beginAtZero: true, max: 100 },
+    },
   };
 
   return (
@@ -141,17 +160,23 @@ const MetricsDisplay = ({ metrics }: MetricsDisplayProps) => {
           <Line
             data={cpuData}
             options={{
-              responsive: true,
-              plugins: { title: { display: true, text: "CPU Utilization" } },
+              ...commonOptions,
+              plugins: {
+                ...commonOptions.plugins,
+                title: { display: true, text: "CPU Utilization" },
+              },
             }}
           />
         </div>
         <div className={styles.chart}>
-          <Bar
+          <Line
             data={memData}
             options={{
-              responsive: true,
-              plugins: { title: { display: true, text: "Memory Usage" } },
+              ...commonOptions,
+              plugins: {
+                ...commonOptions.plugins,
+                title: { display: true, text: "Memory Usage" },
+              },
             }}
           />
         </div>
@@ -160,7 +185,10 @@ const MetricsDisplay = ({ metrics }: MetricsDisplayProps) => {
             data={ioData}
             options={{
               responsive: true,
-              plugins: { title: { display: true, text: "I/O Counters" } },
+              plugins: {
+                title: { display: true, text: "I/O Counters" },
+                legend: { position: "right" },
+              },
             }}
           />
         </div>
