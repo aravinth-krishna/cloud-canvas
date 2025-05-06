@@ -1,63 +1,40 @@
 // components/FileExplorer/FileExplorer.tsx
 "use client";
-import { useEffect, useState } from "react";
 import styles from "./FileExplorer.module.css";
-import { generateClient } from "aws-amplify/data";
-import type { Schema } from "@/amplify/data/resource";
+import { FaTrash } from "react-icons/fa";
 
-interface FileItem {
-  id: string;
-  name: string;
-  type: string;
-  content: string;
-  parentId: string | null;
+interface FileExplorerProps {
+  files: Array<{ id: string; name: string }>;
+  selectedFileId: string | null;
+  onSelect: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
-const fileClient = generateClient<Schema>();
-
-const FileExplorer = () => {
-  const [files, setFiles] = useState<FileItem[]>([]);
-
-  const fetchFiles = async () => {
-    try {
-      const { data } = await fileClient.models.FileItem.list();
-      setFiles(
-        data.map((item) => ({
-          id: item.id,
-          name: item.name ?? "",
-          type: item.type ?? "",
-          content: item.content ?? "",
-          parentId: item.parentId,
-        }))
-      );
-    } catch (error) {
-      console.error("Error fetching files", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchFiles();
-    const handleFileChanged = () => {
-      fetchFiles();
-    };
-    window.addEventListener("fileChanged", handleFileChanged);
-    return () => {
-      window.removeEventListener("fileChanged", handleFileChanged);
-    };
-  }, []);
-
+export default function FileExplorer({
+  files,
+  selectedFileId,
+  onSelect,
+  onDelete,
+}: FileExplorerProps) {
   return (
     <div className={styles.fileExplorer}>
       <h3>Explorer</h3>
       <ul>
         {files.map((file) => (
-          <li key={file.id}>
-            {file.type === "folder" ? "📁" : "📄"} {file.name}
+          <li
+            key={file.id}
+            className={file.id === selectedFileId ? styles.selected : undefined}
+          >
+            <span className={styles.fileName} onClick={() => onSelect(file.id)}>
+              📄 {file.name}
+            </span>
+            <FaTrash
+              className={styles.deleteIcon}
+              onClick={() => onDelete(file.id)}
+            />
           </li>
         ))}
       </ul>
     </div>
   );
-};
-
-export default FileExplorer;
+}

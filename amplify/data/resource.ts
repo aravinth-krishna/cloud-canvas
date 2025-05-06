@@ -17,7 +17,7 @@ const schema = a.schema({
       name: a.string(),
       content: a.string(), // file content
     })
-    .authorization((allow) => [allow.owner()]),
+    .authorization((allow) => [allow.publicApiKey()]),
 
   Usage: a
     .model({

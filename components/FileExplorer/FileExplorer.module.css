@@ -17,3 +17,33 @@
   list-style: none;
   padding-left: 0;
 }
+
+.fileExplorer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.fileExplorer li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.fileExplorer li:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.selected {
+  background: rgba(0, 0, 255, 0.1);
+}
+
+.fileName {
+  flex: 1;
+}
+
+.deleteIcon {
+  margin-left: 8px;
+  color: #c00;
+}
