@@ -17,6 +17,7 @@ import StatusBar from "@/components/StatusBar/StatusBar";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Metrics } from "@/components/MetricsDisplay/MetricsDisplay";
 import { FaPython, FaSave } from "react-icons/fa";
+import { FloatingChatbot } from "@/components/FloatingChatbot/FloatingChatbot";
 
 export default function CodePage() {
   // 1️⃣ Single, memoized data client
@@ -156,6 +157,8 @@ export default function CodePage() {
           </div>
         )}
       </div>
+
+      <FloatingChatbot />
 
       <StatusBar />
     </FullScreen>
