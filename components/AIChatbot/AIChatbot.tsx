@@ -41,10 +41,11 @@ export default function AIChatbot({
       dataClient.models.ChatEntry.get(activeChatId).then((resp) => {
         if (!resp.errors && resp.data) {
           const lines = resp.data.content!.split("\n\n");
-          const conv = lines.map((l, i) => ({
-            role: i % 2 === 0 ? "user" : "assistant",
-            text: l,
-          }));
+          const conv: { role: "user" | "assistant"; text: string }[] =
+            lines.map((l, i) => ({
+              role: i % 2 === 0 ? ("user" as const) : ("assistant" as const),
+              text: l,
+            }));
           setConversation(conv);
         }
       });

@@ -17,7 +17,7 @@ import Ribbon from "@/components/Ribbon/Ribbon";
 import StatusBar from "@/components/StatusBar/StatusBar";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Metrics } from "@/components/MetricsDisplay/MetricsDisplay";
-import { FaPython } from "react-icons/fa";
+import { FaPython, FaSave } from "react-icons/fa";
 import { FloatingChatbot } from "@/components/FloatingChatbot/FloatingChatbot";
 
 const dataClient = generateClient<Schema>();
@@ -129,13 +129,17 @@ export default function CodePage() {
                 <span>
                   <FaPython /> Python v3.13
                 </span>
-                <button
-                  onClick={saveFile}
-                  disabled={!selectedFileId || !isDirty}
-                >
-                  Save
-                </button>
-                <RunCodeButton code={code} onOutput={handleOutput} />
+
+                <div>
+                  <button
+                    onClick={saveFile}
+                    disabled={!selectedFileId || !isDirty}
+                    className={styles.saveButton}
+                  >
+                    <FaSave /> Save
+                  </button>
+                  <RunCodeButton code={code} onOutput={handleOutput} />
+                </div>
               </div>
               <CodeEditor code={code} onCodeChange={handleCodeChange} />
               <Output output={output} />

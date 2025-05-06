@@ -1,7 +1,7 @@
 .floatingChatbot {
   position: fixed;
   bottom: 4rem;
-  right: 2rem;
+  right: 2.5rem;
   color: #fff;
   background: linear-gradient(135deg, #5d56e4, #5895f8);
   border-radius: 5px;

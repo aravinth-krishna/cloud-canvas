@@ -33,6 +33,29 @@
   gap: 0.5rem;
 }
 
+.buttonGroup > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.saveButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  background: #6760eb;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.saveButton:hover {
+  background: #4f46e5;
+}
+
 .metricsView {
   flex: 1;
 }
