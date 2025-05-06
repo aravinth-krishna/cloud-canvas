@@ -5,6 +5,7 @@
   padding: 1rem 2rem;
   border-bottom: 1px solid #c1c1c1;
   background-color: #ffffff;
+  z-index: 1100;
 }
 
 .logo {

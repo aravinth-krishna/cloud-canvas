@@ -1,0 +1,28 @@
+.chatbotContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 90vh;
+  gap: 10rem;
+}
+
+.backButton {
+  position: absolute; /* take out of flow, position relative to .page :contentReference[oaicite:2]{index=2} */
+  top: 5rem;
+  right: 1rem;
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background: rgba(244, 244, 244, 0.8);
+  border: 1px solid #0071f32f;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 1);
+}
