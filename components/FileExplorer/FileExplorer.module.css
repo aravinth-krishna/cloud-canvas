@@ -15,11 +15,6 @@
 
 .fileExplorer ul {
   list-style: none;
-  padding-left: 0;
-}
-
-.fileExplorer ul {
-  list-style: none;
   padding: 0;
 }
 
@@ -29,6 +24,7 @@
   justify-content: space-between;
   padding: 4px 8px;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .fileExplorer li:hover {
@@ -40,7 +36,10 @@
 }
 
 .fileName {
-  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .deleteIcon {

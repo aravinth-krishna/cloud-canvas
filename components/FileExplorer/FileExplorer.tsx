@@ -1,7 +1,7 @@
 // components/FileExplorer/FileExplorer.tsx
 "use client";
 import styles from "./FileExplorer.module.css";
-import { FaTrash } from "react-icons/fa";
+import { FaFile, FaTrash } from "react-icons/fa";
 
 interface FileExplorerProps {
   files: Array<{ id: string; name: string }>;
@@ -26,7 +26,7 @@ export default function FileExplorer({
             className={file.id === selectedFileId ? styles.selected : undefined}
           >
             <span className={styles.fileName} onClick={() => onSelect(file.id)}>
-              📄 {file.name}
+              <FaFile /> {file.name}
             </span>
             <FaTrash
               className={styles.deleteIcon}

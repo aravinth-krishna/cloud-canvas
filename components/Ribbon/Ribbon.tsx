@@ -25,16 +25,6 @@ const Ribbon = ({ onNewFile }: RibbonProps) => {
           <button onClick={handleNew}>New File</button>
         </div>
       </div>
-      <div className={styles.dropdown}>
-        <button>Edit</button>
-        <div className={styles.dropdownContent}>
-          <button>Undo</button>
-          <button>Redo</button>
-          <button>Cut</button>
-          <button>Copy</button>
-          <button>Paste</button>
-        </div>
-      </div>
 
       <div className={styles.dropdown}>
         <button>View</button>
@@ -113,6 +103,9 @@ const Ribbon = ({ onNewFile }: RibbonProps) => {
             >
               GitHub
             </Link>
+          </button>
+          <button>
+            <Link href={"/chatbot"}>Ask AI ✨</Link>
           </button>
         </div>
       </div>
