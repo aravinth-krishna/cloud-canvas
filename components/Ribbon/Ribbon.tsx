@@ -1,31 +1,43 @@
-// components/Ribbon/Ribbon.tsx
 "use client";
+
 import styles from "./Ribbon.module.css";
 import Link from "next/link";
-import DependenciesModal from "@/components/DependenciesModel/DependenciesModel";
 import { useState } from "react";
+import DependenciesModal from "@/components/DependenciesModel/DependenciesModel";
 
 interface RibbonProps {
   onNewFile: (name: string) => void;
+  onSaveFile: () => void;
+  disableSave: boolean;
 }
 
-const Ribbon = ({ onNewFile }: RibbonProps) => {
+export default function Ribbon({
+  onNewFile,
+  onSaveFile,
+  disableSave,
+}: RibbonProps) {
   const [depsOpen, setDepsOpen] = useState(false);
-
-  const handleNew = () => {
-    const name = prompt("Enter file name:");
-    if (name) onNewFile(name);
-  };
 
   return (
     <div className={styles.ribbon}>
       <div className={styles.dropdown}>
         <button>File</button>
         <div className={styles.dropdownContent}>
-          <button onClick={handleNew}>New File</button>
+          <button
+            onClick={() => {
+              const name = prompt("Enter new file name:");
+              if (name) onNewFile(name);
+            }}
+          >
+            New File
+          </button>
+          <button onClick={onSaveFile} disabled={disableSave}>
+            Save File
+          </button>
         </div>
       </div>
 
+      {/* Other menus unchanged */}
       <div className={styles.dropdown}>
         <button>View</button>
         <div className={styles.dropdownContent}>
@@ -111,6 +123,4 @@ const Ribbon = ({ onNewFile }: RibbonProps) => {
       </div>
     </div>
   );
-};
-
-export default Ribbon;
+}

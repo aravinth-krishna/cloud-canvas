@@ -1,7 +1,6 @@
-// app/(protected)/code/page.tsx
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 
@@ -18,17 +17,16 @@ import StatusBar from "@/components/StatusBar/StatusBar";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Metrics } from "@/components/MetricsDisplay/MetricsDisplay";
 import { FaPython, FaSave } from "react-icons/fa";
-import { FloatingChatbot } from "@/components/FloatingChatbot/FloatingChatbot";
-
-const dataClient = generateClient<Schema>();
 
 export default function CodePage() {
-  const [activeTab, setActiveTab] = useState<"files" | "metrics">("files");
+  // 1️⃣ Single, memoized data client
+  const dataClient = useMemo(() => generateClient<Schema>(), []);
 
-  const [files, setFiles] = useState<Array<{ id: string; name: string }>>([]);
+  const [activeTab, setActiveTab] = useState<"files" | "metrics">("files");
+  const [files, setFiles] = useState<{ id: string; name: string }[]>([]);
   const [selectedFileId, setSelectedFileId] = useState<string | null>(null);
 
-  const defaultCode = `# New file...\n`;
+  const defaultCode = "# New file...\n";
   const [code, setCode] = useState(defaultCode);
   const [isDirty, setIsDirty] = useState(false);
 
@@ -36,54 +34,58 @@ export default function CodePage() {
   const [metrics, setMetrics] = useState<unknown>(null);
   const fsHandle = useFullScreenHandle();
 
-  // Fetch all files
+  // 2️⃣ loadFiles + selectFile + saveFile all stable via useCallback
   const loadFiles = useCallback(async () => {
-    const { data } = await dataClient.models.File.list();
-    setFiles(data.map((f) => ({ id: f.id, name: f.name! })));
-  }, []);
+    const resp = await dataClient.models.File.list();
+    setFiles(resp.data.map((f) => ({ id: f.id, name: f.name! })));
+  }, [dataClient]);
 
-  // Load a single file into editor
   const selectFile = useCallback(
     async (id: string) => {
       if (isDirty && !confirm("Discard unsaved changes?")) return;
       const { data } = await dataClient.models.File.get({ id });
-      if (data == null) {
-        alert("Unable to load file content.");
+      if (!data) {
+        alert("Could not load file.");
         return;
       }
       setSelectedFileId(id);
       setCode(data.content ?? defaultCode);
       setIsDirty(false);
     },
-    [isDirty, defaultCode]
+    [dataClient, defaultCode, isDirty]
   );
 
-  // Save current file
-  const saveFile = async () => {
-    if (!selectedFileId) return alert("No file selected!");
-    await dataClient.models.File.update({ id: selectedFileId, content: code });
+  const saveFile = useCallback(async () => {
+    if (!selectedFileId) {
+      alert("No file selected!");
+      return;
+    }
+    await dataClient.models.File.update({
+      id: selectedFileId,
+      content: code,
+    });
     setIsDirty(false);
     alert("Saved!");
-  };
+  }, [dataClient, code, selectedFileId]);
 
-  // Delete a file
-  const deleteFile = async (id: string) => {
-    if (!confirm("Really delete this file?")) return;
-    await dataClient.models.File.delete({ id });
-    if (id === selectedFileId) {
-      setSelectedFileId(null);
-      setCode(defaultCode);
-      setIsDirty(false);
-    }
-    await loadFiles();
-  };
+  const deleteFile = useCallback(
+    async (id: string) => {
+      if (!confirm("Delete this file?")) return;
+      await dataClient.models.File.delete({ id });
+      if (id === selectedFileId) {
+        setSelectedFileId(null);
+        setCode(defaultCode);
+        setIsDirty(false);
+      }
+      await loadFiles();
+    },
+    [dataClient, defaultCode, loadFiles, selectedFileId]
+  );
 
-  // On mount, load list
   useEffect(() => {
     loadFiles();
   }, [loadFiles]);
 
-  // Mark as dirty on code edit
   const handleCodeChange = (newCode: string) => {
     setCode(newCode);
     setIsDirty(true);
@@ -97,6 +99,8 @@ export default function CodePage() {
   return (
     <FullScreen handle={fsHandle}>
       <Navbar fullScreenHandle={fsHandle} />
+
+      {/* 3️⃣ Pass saveFile into Ribbon */}
       <Ribbon
         onNewFile={async (name: string) => {
           const { data } = await dataClient.models.File.create({
@@ -104,12 +108,10 @@ export default function CodePage() {
             content: defaultCode,
           });
           await loadFiles();
-          if (data && data.id) {
-            await selectFile(data.id);
-          } else {
-            alert("Failed to create file.");
-          }
+          if (data?.id) selectFile(data.id);
         }}
+        onSaveFile={saveFile}
+        disableSave={!selectedFileId || !isDirty}
       />
 
       <div className={styles.content}>
@@ -120,7 +122,7 @@ export default function CodePage() {
             <Sidebar
               files={files}
               selectedFileId={selectedFileId}
-              onSelect={selectFile}
+              onSelect={selectFile} // 4️⃣ ensure Sidebar calls this
               onDelete={deleteFile}
             />
 
@@ -130,17 +132,18 @@ export default function CodePage() {
                   <FaPython /> Python v3.13
                 </span>
 
-                <div>
-                  <button
-                    onClick={saveFile}
-                    disabled={!selectedFileId || !isDirty}
-                    className={styles.saveButton}
-                  >
-                    <FaSave /> Save
-                  </button>
-                  <RunCodeButton code={code} onOutput={handleOutput} />
-                </div>
+                {/* inline Save button still works */}
+                <button
+                  onClick={saveFile}
+                  disabled={!selectedFileId || !isDirty}
+                  className={styles.saveButton}
+                >
+                  <FaSave /> Save
+                </button>
+
+                <RunCodeButton code={code} onOutput={handleOutput} />
               </div>
+
               <CodeEditor code={code} onCodeChange={handleCodeChange} />
               <Output output={output} />
             </div>
@@ -153,7 +156,6 @@ export default function CodePage() {
           </div>
         )}
       </div>
-      <FloatingChatbot />
 
       <StatusBar />
     </FullScreen>
