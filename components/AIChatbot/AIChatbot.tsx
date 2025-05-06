@@ -48,7 +48,7 @@ export default function AIChatbot({
           // split alternating user/assistant by double-newlines
           const lines = resp.data.content!.split("\n\n");
           const conv = lines.map((l, i) => ({
-            role: i % 2 === 0 ? "user" : "assistant",
+            role: (i % 2 === 0 ? "user" : "assistant") as "user" | "assistant",
             text: l,
           }));
           setConversation(conv);
@@ -77,6 +77,7 @@ export default function AIChatbot({
     e.preventDefault();
 
     // build message array
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const msgs: any[] = [
       { role: "system", content: systemPrompt },
       ...(pendingAction
