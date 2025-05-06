@@ -5,31 +5,80 @@
   padding: 1rem;
   max-width: 900px;
   height: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: #ffffff;
 }
 
-.controls {
-  margin-bottom: 0.5rem;
-}
-
-.controls select {
+.conversation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   flex: 1;
-  padding: 0.25rem 1rem;
-  border: 1px solid #d1d5db;
-  color: #000000;
-  font-size: 0.875rem;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+/* AI bubbles on left */
+.botBubble {
+  align-self: flex-start;
+  background: #f3f4f6;
+  color: #111827;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  max-width: 70%;
+  white-space: pre-wrap;
+}
+
+/* User bubbles on right */
+.userBubble {
+  align-self: flex-end;
+  background: #e0f2fe;
+  color: #1e293b;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  max-width: 70%;
+  white-space: pre-wrap;
+}
+
+/* Code block styling */
+.codeBlock {
+  background: #1f2937;
+  color: #f8fafc;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-family: "Fira Code", monospace;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+
+/* Controls row */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.fileSelect {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  color: #111827;
 }
 
 .actions button {
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 1rem;
   border: 1px solid #6b7280;
   background: #fff;
   border-radius: 0.375rem;
-  color: #474b51;
+  color: #374151;
   font-size: 0.875rem;
   cursor: pointer;
   transition: background 0.2s;
-  margin-right: 0.5rem;
+  margin-left: 1rem;
 }
 
 .actions .activeAction,
@@ -39,49 +88,31 @@
   border-color: #4338ca;
 }
 
-.conversation {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.userBubble,
-.botBubble {
-  max-width: 70%;
-  margin: 0.5rem 0;
-  padding: 0.75rem 1rem;
-  line-height: 1.4;
-  border-radius: 0.375rem;
-}
-
-.userBubble {
-  background: #e0f2fe;
-  align-self: flex-end;
-}
-
-.botBubble {
-  background: #f3f4f6;
-  align-self: flex-start;
-}
-
+/* Input bar */
 .inputBar {
   display: flex;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 0.5rem;
   margin-bottom: 2rem;
 }
 
-.inputBar .input {
+.input {
   flex: 1;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
   margin-right: 0.5rem;
+  font-size: 0.9375rem;
 }
 
 .sendBtn {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
+  padding: 0 1rem;
   background: #4f46e5;
   color: #fff;
   border: none;
+  border-radius: 0.375rem;
   cursor: pointer;
 }
