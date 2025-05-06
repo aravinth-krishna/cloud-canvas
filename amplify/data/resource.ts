@@ -19,6 +19,13 @@ const schema = a.schema({
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
+  ChatEntry: a
+    .model({
+      name: a.string(), // a title or label, searchable in sidebar
+      content: a.string(), // the chat message text
+    })
+    .authorization((allow) => [allow.publicApiKey()]), // or owner(), if you want private history
+
   Usage: a
     .model({
       month: a.string(), // e.g., "2025-05"
