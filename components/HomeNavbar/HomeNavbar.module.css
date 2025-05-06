@@ -40,7 +40,12 @@
   text-decoration: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem; /* Space between icon and text */
+}
+
+.logo span {
+  font-size: 1.1rem; /* Logo text size */
 }
 
 .navLinks {
