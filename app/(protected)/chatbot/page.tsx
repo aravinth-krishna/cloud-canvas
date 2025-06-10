@@ -64,7 +64,6 @@ export default function ChatbotPage() {
           files={files}
           activeChatId={activeChatId}
           onHistoryUpdate={() => {
-            // reload history when a new chat is saved
             dataClient.models.ChatEntry.list().then((resp) => {
               if (!resp.errors) {
                 setHistoryItems(

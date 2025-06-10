@@ -1,4 +1,3 @@
-// components/RunCodeButton/RunCodeButton.tsx
 import React from "react";
 import styles from "./RunCodeButton.module.css";
 import { generateClient } from "aws-amplify/data";
@@ -32,7 +31,6 @@ const RunCodeButton = React.forwardRef<HTMLButtonElement, CodeExecutorProps>(
         const now = new Date();
         const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 
-        // Correct .list predicate usage:
         const listResp = await client.models.Usage.list({
           filter: { month: { eq: month } },
         });

@@ -1,4 +1,3 @@
-// components/MetricsDisplay/MetricsDisplay.tsx
 "use client";
 import React from "react";
 import {
@@ -57,7 +56,6 @@ interface MetricsDisplayProps {
 const MetricsDisplay: React.FC<MetricsDisplayProps> = ({ metrics }) => {
   if (!metrics) return null;
 
-  // Chart data for CPU utilization
   const cpuData = {
     labels: ["Process", "System"],
     datasets: [
@@ -72,7 +70,6 @@ const MetricsDisplay: React.FC<MetricsDisplayProps> = ({ metrics }) => {
     ],
   };
 
-  // Chart data for Memory usage
   const memUsedPerc =
     (metrics.system_memory.used / metrics.system_memory.total) * 100;
   const memData = {
@@ -89,7 +86,6 @@ const MetricsDisplay: React.FC<MetricsDisplayProps> = ({ metrics }) => {
     ],
   };
 
-  // Chart data for IO counters (Doughnut)
   const ioLabels = Object.keys(metrics.io_counters);
   const ioValues = Object.values(metrics.io_counters);
   const ioData = {

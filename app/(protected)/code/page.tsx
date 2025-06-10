@@ -1,4 +1,3 @@
-// app/(protected)/code/page.tsx
 "use client";
 
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
@@ -35,16 +34,13 @@ export default function CodePage() {
   const [metrics, setMetrics] = useState<unknown>(null);
   const fsHandle = useFullScreenHandle();
 
-  // Ref to trigger RunCodeButton
   const runBtnRef = useRef<HTMLButtonElement>(null);
 
-  // loadFiles
   const loadFiles = useCallback(async () => {
     const resp = await dataClient.models.File.list();
     setFiles(resp.data.map((f) => ({ id: f.id, name: f.name! })));
   }, [dataClient]);
 
-  // selectFile
   const selectFile = useCallback(
     async (id: string) => {
       if (isDirty && !confirm("Discard unsaved changes?")) return;
@@ -61,7 +57,6 @@ export default function CodePage() {
     [dataClient, defaultCode, isDirty]
   );
 
-  // saveFile
   const saveFile = useCallback(async () => {
     if (!selectedFileId) {
       alert("No file selected!");
@@ -72,7 +67,6 @@ export default function CodePage() {
     alert("Saved!");
   }, [dataClient, code, selectedFileId]);
 
-  // deleteFile
   const deleteFile = useCallback(
     async (id: string) => {
       if (!confirm("Delete this file?")) return;
@@ -91,20 +85,17 @@ export default function CodePage() {
     loadFiles();
   }, [loadFiles]);
 
-  // editor change
   const handleCodeChange = (newCode: string) => {
     setCode(newCode);
     setIsDirty(true);
   };
 
-  // handle output
   const handleOutput = (result: string, m: unknown) => {
     setOutput(result);
     setMetrics(m);
     setActiveTab("files");
   };
 
-  // toggle dark/light
   const toggleMode = useCallback(() => {
     document.body.classList.toggle("dark");
   }, []);

@@ -1,4 +1,3 @@
-// app/api/chat/list/route.ts
 import { NextResponse } from "next/server";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";

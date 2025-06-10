@@ -10,8 +10,8 @@ import Link from "next/link";
 import { IoMdArrowBack } from "react-icons/io";
 import { jsPDF } from "jspdf";
 
-const FREE_TIER_SECONDS = 3600 * 24; // 24 h
-const PRICE_PER_SECOND = 0.02; // $0.02 / s
+const FREE_TIER_SECONDS = 3600 * 24;
+const PRICE_PER_SECOND = 0.02;
 
 export default function SettingsPage() {
   const [usage, setUsage] = useState<{
@@ -20,7 +20,6 @@ export default function SettingsPage() {
   } | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Memoize the Amplify Data client once
   const dataClient = useMemo(() => generateClient<Schema>(), []);
 
   useEffect(() => {
@@ -30,7 +29,6 @@ export default function SettingsPage() {
       const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 
       try {
-        // .list() takes predicate on fields directly
         const resp = await dataClient.models.Usage.list({
           filter: { month: { eq: month } },
         });
@@ -59,7 +57,6 @@ export default function SettingsPage() {
     fetchUsage();
   }, [dataClient]);
 
-  // Invoice PDF generator
   const downloadInvoice = () => {
     if (!usage) return;
     const now = new Date();
@@ -129,7 +126,6 @@ export default function SettingsPage() {
       <div className={styles.container}>
         <h1 className={styles.title}>Settings &amp; Billing</h1>
 
-        {/* Usage Card */}
         <div className={styles.card}>
           <div className={styles.cardHeader}>
             <h2>Usage This Month</h2>
@@ -152,7 +148,6 @@ export default function SettingsPage() {
           </p>
         </div>
 
-        {/* Billing Card */}
         <div className={styles.card}>
           <div className={styles.cardHeader}>
             <h2>Estimated Charges</h2>

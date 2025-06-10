@@ -1,4 +1,3 @@
-// components/Sidebar/Sidebar.tsx
 import styles from "./Sidebar.module.css";
 import FileList from "../FileExplorer/FileExplorer";
 

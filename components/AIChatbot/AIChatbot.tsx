@@ -40,12 +40,10 @@ export default function AIChatbot({
     []
   );
 
-  // ── Load selected chat history ───────────────────────────────
   useEffect(() => {
     if (activeChatId) {
       dataClient.models.ChatEntry.get({ id: activeChatId }).then((resp) => {
         if (!resp.errors && resp.data) {
-          // split alternating user/assistant by double-newlines
           const lines = resp.data.content!.split("\n\n");
           const conv = lines.map((l, i) => ({
             role: (i % 2 === 0 ? "user" : "assistant") as "user" | "assistant",
@@ -59,7 +57,6 @@ export default function AIChatbot({
     }
   }, [activeChatId, dataClient]);
 
-  // ── System prompt & available actions ───────────────────────
   const systemPrompt = useMemo(
     () =>
       `You are an expert AI coding assistant. Users supply code files and choose actions like Fix, Explain, or Optimize. Respond clearly with minimal markdown.`,
@@ -72,7 +69,6 @@ export default function AIChatbot({
     { label: "Optimize", prompt: "Please optimize this for AI development:" },
   ];
 
-  // ── Send a new message ──────────────────────────────────────
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -105,7 +101,6 @@ export default function AIChatbot({
     });
     const reply = comp.choices[0]?.message.content || "";
 
-    // update local conversation
     setConversation((c) => [
       ...c,
       { role: "user", text: message },
@@ -114,17 +109,14 @@ export default function AIChatbot({
     setMessage("");
     setPendingAction(null);
 
-    // persist to ChatEntry
     const name = `Chat ${new Date().toLocaleString()}`;
     const content = [message, reply].join("\n\n");
     await dataClient.models.ChatEntry.create({ name, content });
     onHistoryUpdate();
   };
 
-  // ── Render ──────────────────────────────────────────────────
   return (
     <div className={styles.chatWrapper}>
-      {/* Conversation */}
       <div className={styles.conversation}>
         {conversation.map((m, i) => {
           const isUser = m.role === "user";
@@ -134,7 +126,6 @@ export default function AIChatbot({
               className={isUser ? styles.userBubble : styles.botBubble}
             >
               {m.text.includes("```") ? (
-                /* split on code fences */
                 m.text.split(/```([\s\S]*?)```/).map((part, idx) =>
                   idx % 2 === 1 ? (
                     <pre key={idx} className={styles.codeBlock}>
@@ -152,7 +143,6 @@ export default function AIChatbot({
         })}
       </div>
 
-      {/* File selector + action buttons */}
       <div className={styles.controls}>
         <select
           value={selectedFileId}
@@ -182,7 +172,6 @@ export default function AIChatbot({
         </div>
       </div>
 
-      {/* Input bar */}
       <form onSubmit={handleSubmit} className={styles.inputBar}>
         <input
           type="text"

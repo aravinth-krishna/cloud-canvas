@@ -7,7 +7,7 @@
 }
 
 .backButton {
-  position: absolute; /* take out of flow, position relative to .page :contentReference[oaicite:2]{index=2} */
+  position: absolute;
   top: 5rem;
   right: 1rem;
   color: #0070f3;

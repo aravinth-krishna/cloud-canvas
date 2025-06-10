@@ -1,4 +1,3 @@
-// components/Ribbon/Ribbon.tsx
 "use client";
 
 import React, { useState } from "react";

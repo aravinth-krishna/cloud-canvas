@@ -1,4 +1,3 @@
-// components/DependenciesModal/DependenciesModal.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import { FiX, FiChevronDown } from "react-icons/fi";

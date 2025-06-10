@@ -1,11 +1,7 @@
 import Link from "next/link";
 import styles from "./page.module.css";
-// If Navbar is NOT in layout.tsx, uncomment the next line
 import HomeNavbar from "@/components/HomeNavbar/HomeNavbar";
 import Footer from "@/components/Footer/Footer";
-
-// Optional: For icons, install react-icons: npm install react-icons
-// import { FiCpu, FiCode, FiDatabase, FiDollarSign, FiPlayCircle } from 'react-icons/fi';
 
 export default function Home() {
   return (
@@ -13,7 +9,6 @@ export default function Home() {
       <HomeNavbar />
 
       <main className={styles.mainContent}>
-        {/* Hero Section */}
         <section className={styles.hero}>
           <div className={styles.heroContent}>
             <h1 className={styles.headline}>
@@ -29,13 +24,9 @@ export default function Home() {
               <button className={styles.ctaButton}>Start Coding Now</button>
             </Link>
             <p className={styles.ctaSubtext}>No credit card required*</p>
-            {/* (*Add asterisk if you have a free tier or trial) */}
           </div>
-          {/* Optional: Add a visual element here (illustration, code snippet animation) */}
-          {/* <div className={styles.heroVisual}> ... </div> */}
         </section>
 
-        {/* About/Problem Section */}
         <section id="about" className={styles.section}>
           <h2 className={styles.sectionTitle}>Stop Worrying About Hardware</h2>
           <p className={styles.sectionText}>
@@ -46,14 +37,11 @@ export default function Home() {
           </p>
         </section>
 
-        {/* Features Section */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Features Designed For You</h2>
           <div className={styles.featuresGrid}>
             <div className={styles.featureCard}>
-              {/* <FiCode size={40} className={styles.featureIcon} /> */}
               <span className={styles.featureIcon}>📝</span>{" "}
-              {/* Placeholder Icon */}
               <h3>Web-Based Editor</h3>
               <p>
                 Code directly in your browser with a familiar interface. No
@@ -61,9 +49,7 @@ export default function Home() {
               </p>
             </div>
             <div className={styles.featureCard}>
-              {/* <FiPlayCircle size={40} className={styles.featureIcon} /> */}
               <span className={styles.featureIcon}>🚀</span>{" "}
-              {/* Placeholder Icon */}
               <h3>PyTorch Ready</h3>
               <p>
                 Jump straight into development with PyTorch and essential
@@ -71,9 +57,7 @@ export default function Home() {
               </p>
             </div>
             <div className={styles.featureCard}>
-              {/* <FiCpu size={40} className={styles.featureIcon} /> */}
               <span className={styles.featureIcon}>☁️</span>{" "}
-              {/* Placeholder Icon */}
               <h3>Cloud Powered</h3>
               <p>
                 Leverage cloud compute resources on demand. Say goodbye to local
@@ -81,9 +65,7 @@ export default function Home() {
               </p>
             </div>
             <div className={styles.featureCard}>
-              {/* <FiDatabase size={40} className={styles.featureIcon} /> */}
               <span className={styles.featureIcon}>💾</span>{" "}
-              {/* Placeholder Icon */}
               <h3>Persistent Storage</h3>
               <p>
                 Save your code files and projects securely. Pick up right where
@@ -93,7 +75,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* How it Works Section */}
         <section className={`${styles.section} ${styles.howItWorks}`}>
           <h2 className={styles.sectionTitle}>Get Started in Minutes</h2>
           <div className={styles.stepsGrid}>
@@ -129,26 +110,19 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Pricing Section */}
         <section id="pricing" className={styles.section}>
           <h2 className={styles.sectionTitle}>Simple, Transparent Pricing</h2>
           <div className={styles.pricingCard}>
-            {/* <FiDollarSign size={40} className={styles.featureIcon} /> */}
-            <span className={styles.featureIcon}>💰</span>{" "}
-            {/* Placeholder Icon */}
-            <h3>Pay Per Use</h3>
+            <span className={styles.featureIcon}>💰</span> <h3>Pay Per Use</h3>
             <p>
               You only pay for the computational resources (like CPU/GPU time
               and memory) you consume while running your code. File storage is
               included*.
-              {/* (*Clarify storage limits/costs if applicable) */}
             </p>
-            {/* --- IMPORTANT: ADD YOUR SPECIFIC PRICING DETAILS HERE --- */}
             <div className={styles.pricingDetails}>
               <p>
                 <strong>Compute Time:</strong> $0.02 per hour
               </p>
-              {/* Add more details as needed - e.g., different instance types? */}
               <p className={styles.pricingNote}>
                 Clear usage tracking available in your dashboard.
               </p>
@@ -159,10 +133,8 @@ export default function Home() {
               </button>
             </Link>
           </div>
-          {/* Optional: Add tiers if you have them (e.g., Free Tier, Pro Tier) */}
         </section>
 
-        {/* Final CTA Section */}
         <section className={`${styles.section} ${styles.finalCtaSection}`}>
           <h2>Ready to Start Your AI Journey?</h2>
           <p>

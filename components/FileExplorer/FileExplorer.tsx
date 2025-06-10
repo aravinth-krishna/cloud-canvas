@@ -1,4 +1,3 @@
-// components/FileExplorer/FileExplorer.tsx
 "use client";
 import styles from "./FileExplorer.module.css";
 import { FaFile, FaTrash } from "react-icons/fa";

@@ -1,36 +1,34 @@
-// amplify/data/resource.ts
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
 const schema = a.schema({
-  // Don't care about this model, just ignore it completely
   FileItem: a
     .model({
       name: a.string(),
-      type: a.string(), // "file" or "folder"
-      content: a.string(), // only applicable for files
-      parentId: a.string(), // for hierarchical structuring
+      type: a.string(),
+      content: a.string(),
+      parentId: a.string(),
     })
     .authorization((allow) => [allow.owner()]),
 
   File: a
     .model({
       name: a.string(),
-      content: a.string(), // file content
+      content: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
   ChatEntry: a
     .model({
-      name: a.string(), // a title or label, searchable in sidebar
-      content: a.string(), // the chat message text
+      name: a.string(),
+      content: a.string(),
     })
-    .authorization((allow) => [allow.publicApiKey()]), // or owner(), if you want private history
+    .authorization((allow) => [allow.publicApiKey()]),
 
   Usage: a
     .model({
-      month: a.string(), // e.g., "2025-05"
-      totalDuration: a.float(), // seconds used
-      runs: a.integer(), // number of code runs
+      month: a.string(),
+      totalDuration: a.float(),
+      runs: a.integer(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 });

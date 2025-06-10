@@ -1,7 +1,6 @@
-import styles from "./Footer.module.css"; // Updated import path
+import styles from "./Footer.module.css";
 
 export default function Footer() {
-  // Updated function name
   const currentYear = new Date().getFullYear();
 
   return (

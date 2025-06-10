@@ -1,4 +1,3 @@
-/* components/ActivityBar/ActivityBar.module.css */
 .activityBar {
   padding: 0.5rem;
   height: 85vh;
@@ -23,7 +22,6 @@
 }
 
 .activityBar button {
-  /* existing styles */
   transition: background-color 150ms ease;
 }
 
@@ -32,6 +30,5 @@
 }
 
 .activityBar button.active {
-  /* visually indicate the selected tab */
   background-color: #d0d0d0;
 }
